@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { analyticsMiddleware } from '../analytics/analyticsMiddleware'
 import consultationReducer from './slices/consultationSlice'
 import heroReducer from './slices/heroSlice'
 import partnerReducer from './slices/partnerSlice'
@@ -15,4 +16,5 @@ export const store = configureStore({
     projects: projectReducer,
     services: serviceReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(analyticsMiddleware),
 })

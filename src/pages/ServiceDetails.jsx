@@ -10,6 +10,7 @@ import {
   selectServiceDetailStatus,
 } from '../Redux/slices/serviceSlice'
 import { fetchPublicServiceById } from '../Redux/thunks/serviceThunks'
+import { trackFrontendEvent } from '../analytics/webAnalytics'
 import { getServiceSections } from '../utils/serviceCatalog'
 
 function ServiceDetails() {
@@ -25,6 +26,21 @@ function ServiceDetails() {
       dispatch(fetchPublicServiceById(serviceId))
     }
   }, [dispatch, serviceId])
+
+  useEffect(() => {
+    if (!service) return
+    trackFrontendEvent({
+      eventType: 'custom',
+      category: 'service',
+      action: 'service_detail_impression',
+      label: String(service?.name || '').trim() || 'Service Detail',
+      metadata: {
+        serviceId: String(serviceId || '').trim(),
+        serviceName: String(service?.name || '').trim(),
+        routeKey: 'service_details',
+      },
+    })
+  }, [service, serviceId])
 
   const contentSections = getServiceSections(service)
   const serviceSummary = String(service?.description || '').trim() || contentSections[0]?.description || ''
