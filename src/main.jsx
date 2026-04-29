@@ -5,6 +5,17 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import { store } from './Redux/store'
+import { sendAnalyticsEventBatch } from './Redux/thunks/analyticsThunks'
+import { configureAnalyticsBatchSender } from './analytics/webAnalytics'
+
+configureAnalyticsBatchSender(async (events) => {
+  try {
+    await store.dispatch(sendAnalyticsEventBatch(events)).unwrap()
+    return true
+  } catch (_error) {
+    return false
+  }
+})
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

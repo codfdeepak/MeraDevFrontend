@@ -203,7 +203,7 @@ function AppHeader({ theme, navOpen, onToggleTheme, onToggleNav, onCloseNav }) {
           <div className="brand-mark">
             <img
               src={theme === "dark" ? logoDark : logoLight}
-              alt="Deepak Kumar logo"
+              alt="MeraDev Technologies logo"
             />
           </div>
           <div className="brand-copy">
