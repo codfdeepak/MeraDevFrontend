@@ -24,6 +24,12 @@ const CONTACT_CHANNELS = [
     external: true,
     note: 'Fast updates, follow-ups, and project communication.',
   },
+  {
+    title: 'Address',
+    tone: 'phone',
+    value: 'Sector 18, Noida - 201301, Uttar Pradesh',
+    note: 'Our official business address for meetings and correspondence.',
+  },
 ]
 
 const DELIVERY_COMMITMENTS = [

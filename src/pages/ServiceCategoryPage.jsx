@@ -146,6 +146,7 @@ function ServiceCategoryPage() {
                       <div className="category-service-headline">
                         <p className="muted web-service-summary category-service-summary">{service.summary}</p>
                       </div>
+                      <p className="category-service-points-title">Solution highlights</p>
                       <ul className="web-service-points category-service-points">
                         {service.points.map((point, pointIndex) => (
                           <li key={`${serviceNumber}-point-${pointIndex}`}>{point}</li>

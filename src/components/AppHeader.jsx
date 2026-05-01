@@ -8,11 +8,12 @@ const PRIMARY_NAV_ITEMS = [
   { to: "/technologies", label: "Technologies" },
   { to: "/services", label: "Services" },
   { to: "/projects", label: "Projects" },
-  { to: "/payment-policy", label: "Payment Policy" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/partners", label: "Partners" },
 ];
 
 const OVERFLOW_NAV_ITEMS = [
+  { to: "/payment-policy", label: "Payment Policy" },
   { to: "/about-us", label: "About Us" },
   { to: "/contact-us", label: "Contact Us" },
 ];

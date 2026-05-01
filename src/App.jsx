@@ -10,6 +10,7 @@ import Enquiry from "./pages/Enquiry";
 import Home from "./pages/Home";
 import Partners from "./pages/Partners";
 import PaymentPolicy from "./pages/PaymentPolicy";
+import Pricing from "./pages/Pricing";
 import ProfileDetails from "./pages/ProfileDetails";
 import Projects from "./pages/Projects";
 import ServiceCategoryPage from "./pages/ServiceCategoryPage";
@@ -37,6 +38,7 @@ const resolveRouteAnalyticsMeta = (pathname) => {
   if (cleanPath === "/partners") return { routeKey: "partners" };
   if (cleanPath === "/contact-us") return { routeKey: "contact_us" };
   if (cleanPath === "/projects") return { routeKey: "projects" };
+  if (cleanPath === "/pricing") return { routeKey: "pricing" };
   if (cleanPath === "/about-us") return { routeKey: "about_us" };
   if (cleanPath === "/technologies") return { routeKey: "technologies" };
   if (cleanPath === "/enquiry") return { routeKey: "enquiry" };
@@ -80,6 +82,7 @@ function App() {
         <Route path="/services/category" element={<Navigate to="/services" replace />} />
         <Route path="/services/category/:categoryKey" element={<ServiceCategoryPage />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/payment-policy" element={<PaymentPolicy />} />
         <Route path="/services/:serviceId" element={<ServiceDetails />} />
         <Route path="/partners" element={<Partners />} />

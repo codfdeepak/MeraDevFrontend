@@ -9,15 +9,8 @@ const FALLBACK_HERO_SLIDES = [
   {
     _id: "fallback-slide-1",
     image: heroImage,
-    title: "We engineer software products that scale with your business.",
-    text: "Strategy, UI, architecture, and development aligned to ship fast and stay maintainable in production.",
-  },
-  {
-    _id: "fallback-slide-2",
-    image: heroImage,
-    title:
-      "From MVP to enterprise systems, we build for speed and reliability.",
-    text: "Modern web stack, automation-ready workflows, and clean code practices built around real business outcomes.",
+    title: "We build scalable software solutions that drive measurable business growth.",
+    text: "From product strategy and UX to architecture and engineering, we deliver production-ready systems at speed while ensuring long-term maintainability.",
   },
 ];
 
