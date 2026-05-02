@@ -5828,11 +5828,28 @@ h1 {
   }
 
   .projects-hero-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
   }
 
   .projects-metric-card.total {
-    grid-column: 1 / -1;
+    grid-column: auto;
+  }
+
+  .projects-metric-card {
+    min-height: 78px;
+    padding: 9px 8px;
+    border-radius: 11px;
+  }
+
+  .projects-metric-value {
+    font-size: clamp(19px, 6vw, 24px);
+  }
+
+  .projects-metric-label {
+    margin-top: 5px;
+    font-size: 9.8px;
+    letter-spacing: 0.5px;
   }
 
   .projects-filter-panel {
@@ -5840,8 +5857,10 @@ h1 {
   }
 
   .projects-category-tab {
-    width: 100%;
-    justify-content: space-between;
+    width: auto;
+    justify-content: flex-start;
+    padding: 6px 10px;
+    font-size: 11px;
   }
 
   .projects-grid {
@@ -5857,17 +5876,35 @@ h1 {
   }
 
   .project-card-actions .cta {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-start;
+    min-height: 30px;
+    padding: 6px 10px;
+    font-size: 11px;
   }
 }
 
 @media (max-width: 540px) {
   .projects-hero-metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .projects-metric-card.total {
     grid-column: auto;
+  }
+
+  .projects-metric-card {
+    min-height: 72px;
+    padding: 8px 7px;
+  }
+
+  .projects-metric-value {
+    font-size: clamp(17px, 6.2vw, 21px);
+  }
+
+  .projects-metric-label {
+    font-size: 9px;
+    letter-spacing: 0.35px;
   }
 }

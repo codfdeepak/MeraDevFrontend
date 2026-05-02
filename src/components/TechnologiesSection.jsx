@@ -13,6 +13,7 @@ import {
 import { RiCursorFill } from "react-icons/ri";
 import {
   SiBootstrap,
+  SiAndroidstudio,
   SiDocker,
   SiExpress,
   SiFirebase,
@@ -25,6 +26,7 @@ import {
   SiPostgresql,
   SiTailwindcss,
   SiTypescript,
+  SiXcode,
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 
@@ -67,6 +69,8 @@ const TECH_SECTIONS = [
       { name: "Git", icon: FaGitAlt, color: "#ef4444" },
       { name: "GitHub", icon: FaGithub, color: "#1f2937" },
       { name: "VS Code", icon: VscCode, color: "#3b82f6" },
+      { name: "Android Studio", icon: SiAndroidstudio, color: "#3ddc84" },
+      { name: "Xcode", icon: SiXcode, color: "#147efb" },
       { name: "Figma", icon: FaFigma, color: "#ec4899" },
       { name: "Jira", icon: SiJira, color: "#2563eb" },
       { name: "Cursor", icon: RiCursorFill, color: "#8b5cf6" },
@@ -125,4 +129,3 @@ function TechnologiesSection() {
 }
 
 export default TechnologiesSection;
-
