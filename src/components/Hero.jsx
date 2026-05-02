@@ -31,6 +31,7 @@ const HERO_MEDIA_DETAILS = [
 ];
 const HERO_WHATSAPP_NUMBER = "919501924299";
 const HERO_WHATSAPP_BASE_URL = `https://wa.me/${HERO_WHATSAPP_NUMBER}`;
+const clampNumber = (value, min, max) => Math.min(max, Math.max(min, value));
 
 const sanitizeSlideTitle = (title = "", index = 0) => {
   const cleanedTitle = String(title)
@@ -97,6 +98,30 @@ function Hero({ onDiscuss }) {
     return `${HERO_WHATSAPP_BASE_URL}?text=${encodeURIComponent(message)}`;
   };
 
+  const getHeroTitleSizing = (slideTitle = "") => {
+    const titleLength = String(slideTitle).trim().length;
+    const overflowChars = Math.max(0, titleLength - 46);
+    const titleScale = clampNumber(1 - overflowChars * 0.0064, 0.68, 1);
+    const titleMaxCh = clampNumber(Math.round(15 + overflowChars * 0.2), 15, 26);
+
+    return {
+      "--hero-title-scale": Number(titleScale.toFixed(3)),
+      "--hero-title-max-ch": titleMaxCh,
+    };
+  };
+
+  const getHeroDescriptionSizing = (slideText = "") => {
+    const textLength = String(slideText).trim().length;
+    const overflowChars = Math.max(0, textLength - 110);
+    const descriptionScale = clampNumber(1 - overflowChars * 0.0016, 0.72, 1);
+    const descriptionLineHeight = clampNumber(1.62 - overflowChars * 0.0009, 1.34, 1.62);
+
+    return {
+      "--hero-description-scale": Number(descriptionScale.toFixed(3)),
+      "--hero-description-line-height": Number(descriptionLineHeight.toFixed(2)),
+    };
+  };
+
   return (
     <section className="hero-slider" aria-label="Hero slider">
       {slides.map((slide, index) => (
@@ -114,8 +139,12 @@ function Hero({ onDiscuss }) {
           <div className="hero-split-layout">
             <div className="hero-copy-pane">
               <div className="hero-overlay split-overlay">
-                <h2>{slide.title}</h2>
-                <p className="hero-description">{slide.text}</p>
+                <h2 className="hero-title" style={getHeroTitleSizing(slide.title)}>
+                  {slide.title}
+                </h2>
+                <p className="hero-description" style={getHeroDescriptionSizing(slide.text)}>
+                  {slide.text}
+                </p>
                 <div className="hero-capability-row" aria-hidden="true">
                   {HERO_CAPABILITIES.map((capability) => (
                     <span key={capability} className="hero-capability-chip">
