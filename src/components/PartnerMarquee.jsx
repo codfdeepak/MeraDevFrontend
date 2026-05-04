@@ -6,6 +6,15 @@ const SWIPE_INTERVAL_MS = 3200
 const SWIPE_TRANSITION_MS = 650
 const DESKTOP_VISIBLE_CARDS = 3
 
+const formatYearsLabel = (value) => {
+  const years = Number(value)
+  if (!Number.isFinite(years) || years <= 0) return null
+  const normalizedYears = Number.isInteger(years)
+    ? String(years)
+    : String(Math.round(years * 10) / 10)
+  return `${normalizedYears}+ Years`
+}
+
 const getPartnerName = (partner) => partner?.user?.fullName || 'Partner Profile'
 
 const getPartnerDesignation = (partner) => {
@@ -31,6 +40,9 @@ const isOwnerPartner = (partner) =>
   String(partner?.user?.role || '').toLowerCase() === 'admin'
 
 const getExperienceLabel = (partner) => {
+  const directYearsLabel = formatYearsLabel(partner?.totalExperienceYears)
+  if (directYearsLabel) return directYearsLabel
+
   const experience = Array.isArray(partner?.experience) ? partner.experience : []
   const startTimestamps = experience
     .map((item) => (item?.startDate ? new Date(item.startDate).getTime() : null))
@@ -39,7 +51,7 @@ const getExperienceLabel = (partner) => {
   if (startTimestamps.length > 0) {
     const firstStart = Math.min(...startTimestamps)
     const years = Math.max(1, Math.round((Date.now() - firstStart) / ONE_YEAR_MS))
-    return `${years}+ Years`
+    return formatYearsLabel(years) || '1+ Years'
   }
 
   const skills = Array.isArray(partner?.skills) ? partner.skills : []
@@ -51,7 +63,7 @@ const getExperienceLabel = (partner) => {
     }),
   )
 
-  return maxSkillYears > 0 ? `${maxSkillYears}+ Years` : '1+ Years'
+  return formatYearsLabel(maxSkillYears) || '1+ Years'
 }
 
 function PartnerMarquee({ partners, status, error }) {

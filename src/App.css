@@ -1906,6 +1906,349 @@ h1 {
   padding: 10px 12px;
 }
 
+.partners-hierarchy {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  padding-left: 34px;
+}
+
+.partners-hierarchy::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 44px;
+  bottom: 24px;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f0c24f 0%, #56cdff 34%, #73c66b 68%, #b987ff 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(89, 164, 255, 0.36);
+}
+
+.partner-chain-intro {
+  position: relative;
+  z-index: 2;
+  margin-left: 8px;
+  padding: 10px 12px 10px 34px;
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--border));
+  border-radius: 12px;
+  background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      transparent 56%
+    ),
+    color-mix(in srgb, var(--card) 93%, transparent);
+}
+
+.partner-chain-intro p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--text) 88%, var(--accent));
+}
+
+.partner-chain-intro-node {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--accent) 60%, #ffffff);
+  background: radial-gradient(circle at 32% 28%, #ffffff 0 22%, var(--accent) 58%, #04446f 100%);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.partner-team-section {
+  --team-accent: #7ca2ff;
+  --team-accent-2: #4dd9ff;
+  position: relative;
+  overflow: visible;
+  margin-left: 8px;
+  border: 1px solid color-mix(in srgb, var(--team-accent) 30%, var(--border));
+  border-radius: 20px;
+  padding: 18px;
+  background: linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--team-accent) 18%, transparent),
+      transparent 50%
+    ),
+    linear-gradient(
+      330deg,
+      color-mix(in srgb, var(--team-accent-2) 18%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--card) 92%, transparent);
+  box-shadow: 0 20px 44px -28px color-mix(in srgb, var(--team-accent) 58%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.partner-team-section::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 36px;
+  width: 20px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #f8fbff 30%, var(--team-accent)),
+    color-mix(in srgb, var(--team-accent) 28%, var(--team-accent-2))
+  );
+  box-shadow: 0 0 12px color-mix(in srgb, var(--team-accent) 50%, transparent);
+  z-index: 2;
+}
+
+.partner-team-section::after {
+  content: '';
+  position: absolute;
+  left: -31px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffffff 0 18%,
+    color-mix(in srgb, var(--team-accent) 38%, var(--team-accent-2)) 62%,
+    color-mix(in srgb, var(--team-accent) 84%, #071226) 100%
+  );
+  border: 2px solid color-mix(in srgb, var(--team-accent) 46%, #f2f8ff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-accent) 16%, transparent),
+    0 0 18px color-mix(in srgb, var(--team-accent-2) 42%, transparent);
+  z-index: 3;
+}
+
+.partner-team-section.is-root::before {
+  top: 44px;
+}
+
+.partner-team-section.is-root::after {
+  top: 36px;
+}
+
+.partner-team-section.is-leaf::after {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-accent) 22%, transparent),
+    0 0 16px color-mix(in srgb, var(--team-accent) 38%, transparent);
+}
+
+.team-leadership {
+  --team-accent: #f0c24f;
+  --team-accent-2: #d58d2b;
+}
+
+.team-tech {
+  --team-accent: #40d4ff;
+  --team-accent-2: #4a7bff;
+}
+
+.team-marketing {
+  --team-accent: #ffad49;
+  --team-accent-2: #5dbf75;
+}
+
+.team-creative {
+  --team-accent: #ff7fae;
+  --team-accent-2: #a67cff;
+}
+
+.team-general {
+  --team-accent: #9caac8;
+  --team-accent-2: #6f84ab;
+}
+
+.partner-team-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.partner-team-level {
+  margin: 0 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--team-accent) 46%, var(--border));
+  background: color-mix(in srgb, var(--card) 78%, var(--team-accent) 22%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--team-accent) 70%, var(--text));
+}
+
+.partner-team-head h3 {
+  margin: 0;
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.12;
+  letter-spacing: -0.35px;
+}
+
+.partner-team-head .muted {
+  margin: 7px 0 0;
+  max-width: 720px;
+}
+
+.partner-team-head .pill {
+  position: relative;
+  z-index: 1;
+  border-color: color-mix(in srgb, var(--team-accent) 52%, var(--border));
+  background: color-mix(in srgb, var(--card) 82%, var(--team-accent) 18%);
+  color: var(--text);
+}
+
+.partner-zigzag-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.partner-zigzag-board::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--team-accent) 78%, #ffffff) 0%,
+    color-mix(in srgb, var(--team-accent-2) 62%, var(--team-accent)) 100%
+  );
+  box-shadow: 0 0 20px color-mix(in srgb, var(--team-accent) 40%, transparent);
+}
+
+.partner-zigzag-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.partner-zigzag-slot {
+  min-width: 0;
+  position: relative;
+  display: flex;
+}
+
+.partner-zigzag-slot.left {
+  justify-content: flex-end;
+}
+
+.partner-zigzag-slot.right {
+  justify-content: flex-start;
+}
+
+.partner-zigzag-row.left .partner-zigzag-slot.left::after,
+.partner-zigzag-row.right .partner-zigzag-slot.right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--team-accent) 32%, var(--team-accent-2)),
+    color-mix(in srgb, var(--team-accent) 74%, #f5f9ff)
+  );
+  box-shadow: 0 0 10px color-mix(in srgb, var(--team-accent) 45%, transparent);
+}
+
+.partner-zigzag-row.left .partner-zigzag-slot.left::after {
+  right: -12px;
+  transform: translateY(-50%) rotate(-10deg);
+  transform-origin: right center;
+}
+
+.partner-zigzag-row.right .partner-zigzag-slot.right::after {
+  left: -12px;
+  transform: translateY(-50%) rotate(10deg);
+  transform-origin: left center;
+}
+
+.partner-zigzag-center {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 32px;
+}
+
+.partner-zigzag-node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--team-accent) 52%, #ffffff);
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffffff 0 20%,
+    color-mix(in srgb, var(--team-accent) 44%, var(--team-accent-2)) 58%,
+    color-mix(in srgb, var(--team-accent) 88%, #071226) 100%
+  );
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-accent) 18%, transparent),
+    0 0 16px color-mix(in srgb, var(--team-accent) 38%, transparent);
+}
+
+.partner-zigzag-placeholder {
+  display: block;
+  width: min(100%, 330px);
+  height: 1px;
+  visibility: hidden;
+}
+
+.partner-zigzag-slot .partner-card-link {
+  width: min(100%, 330px);
+  height: 100%;
+}
+
+.partner-zigzag-slot .partner-card {
+  max-width: none;
+  min-height: 220px;
+  border-color: color-mix(in srgb, var(--team-accent) 34%, var(--border));
+  background: linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--team-accent) 12%, transparent),
+      transparent 40%
+    ),
+    color-mix(in srgb, var(--card) 95%, transparent);
+  box-shadow: 0 12px 28px -24px color-mix(in srgb, var(--team-accent) 70%, transparent);
+}
+
+.partner-zigzag-slot .partner-card-link:hover .partner-card,
+.partner-zigzag-slot .partner-card-link:focus-visible .partner-card {
+  border-color: color-mix(in srgb, var(--team-accent) 62%, var(--team-accent-2));
+  box-shadow: 0 20px 34px -20px color-mix(in srgb, var(--team-accent) 60%, transparent);
+}
+
+.partner-zigzag-slot .partner-card .partner-avatar {
+  border-color: color-mix(in srgb, var(--team-accent) 46%, var(--border));
+}
+
+.partner-empty-state {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px dashed color-mix(in srgb, var(--team-accent) 36%, var(--border));
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+}
+
 .home-services-section {
   max-width: 1220px;
   margin: 0 auto 18px;
@@ -4727,6 +5070,151 @@ h1 {
 
   .partners-panel .partner-card {
     max-width: 220px;
+  }
+
+  .partners-hierarchy {
+    gap: 14px;
+    padding-left: 24px;
+  }
+
+  .partners-hierarchy::before {
+    left: 9px;
+    top: 34px;
+    bottom: 18px;
+    width: 3px;
+  }
+
+  .partner-chain-intro {
+    margin-left: 4px;
+    padding: 9px 10px 9px 30px;
+  }
+
+  .partner-chain-intro p {
+    font-size: 12px;
+  }
+
+  .partner-chain-intro-node {
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    border-width: 1.5px;
+  }
+
+  .partner-team-section {
+    margin-left: 4px;
+    padding: 13px;
+    border-radius: 14px;
+  }
+
+  .partner-team-section::before {
+    left: -16px;
+    top: 31px;
+    width: 12px;
+    height: 2px;
+  }
+
+  .partner-team-section::after {
+    left: -22px;
+    top: 25px;
+    width: 11px;
+    height: 11px;
+    border-width: 1.5px;
+  }
+
+  .partner-team-section.is-root::before {
+    top: 38px;
+  }
+
+  .partner-team-section.is-root::after {
+    top: 31px;
+  }
+
+  .partner-team-head {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .partner-team-head h3 {
+    font-size: clamp(20px, 7vw, 24px);
+  }
+
+  .partner-team-head .muted {
+    margin-top: 6px;
+  }
+
+  .partner-team-head .pill {
+    align-self: flex-start;
+  }
+
+  .partner-zigzag-board {
+    gap: 12px;
+  }
+
+  .partner-zigzag-board::before {
+    left: 7px;
+    width: 2px;
+    transform: none;
+  }
+
+  .partner-zigzag-row {
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .partner-zigzag-center {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 100%;
+  }
+
+  .partner-zigzag-slot.left,
+  .partner-zigzag-slot.right {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: stretch;
+  }
+
+  .partner-zigzag-row.left .partner-zigzag-slot.right,
+  .partner-zigzag-row.right .partner-zigzag-slot.left {
+    display: none;
+  }
+
+  .partner-zigzag-row.left .partner-zigzag-slot.left::after,
+  .partner-zigzag-row.right .partner-zigzag-slot.right::after {
+    width: 10px;
+    left: -10px;
+    right: auto;
+    transform: translateY(-50%) rotate(14deg);
+    transform-origin: left center;
+  }
+
+  .partner-zigzag-row.left .partner-zigzag-slot.left::after {
+    transform: translateY(-50%) rotate(-14deg);
+  }
+
+  .partner-zigzag-row.right .partner-zigzag-slot.right::after {
+    transform: translateY(-50%) rotate(14deg);
+  }
+
+  .partner-zigzag-node {
+    width: 11px;
+    height: 11px;
+    border-width: 1.5px;
+  }
+
+  .partner-zigzag-slot .partner-card-link {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
+
+  .partner-zigzag-slot .partner-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    min-height: 184px;
   }
 
   .partner-avatar {

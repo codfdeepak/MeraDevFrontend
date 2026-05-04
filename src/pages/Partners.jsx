@@ -31,12 +31,9 @@ function Partners() {
 
       <section className="panel partners-panel">
         <div className="panel-head">
-          <h2>Our Partners</h2>
+          <h2>Mera Dev Family</h2>
           <span className="pill small">{partners.length} Profiles</span>
         </div>
-        <p className="muted">
-          Professionals from development and design backgrounds. Ratings are standardized for visual consistency.
-        </p>
         <PartnerCardList partners={partners} status={status} error={error} />
       </section>
     </PageFrame>
