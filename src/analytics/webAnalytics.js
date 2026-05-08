@@ -21,6 +21,7 @@ const GEO_REVERSE_LOOKUP_ENDPOINTS = [
   "https://api.bigdatacloud.net/data/reverse-geocode-client",
   "https://api-bdc.net/data/reverse-geocode-client",
 ];
+const ENABLE_BROWSER_GEOLOCATION = false;
 
 let queue = [];
 let isSending = false;
@@ -255,6 +256,10 @@ const getPermissionStateForGeolocation = async () => {
 };
 
 const resolvePreciseLocationHint = async () => {
+  if (!ENABLE_BROWSER_GEOLOCATION) {
+    return null;
+  }
+
   const cached = readCachedLocationHint();
   if (cached) return cached;
 
@@ -301,6 +306,7 @@ const resolvePreciseLocationHint = async () => {
 };
 
 const warmupPreciseLocationHint = () => {
+  if (!ENABLE_BROWSER_GEOLOCATION) return;
   if (latestLocationHint) return;
   if (locationHintPromise) return;
 
