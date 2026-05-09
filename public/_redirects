@@ -1,1 +1,11 @@
+# Canonical domain redirects
+http://www.meradevtechnologies.com/* https://meradevtechnologies.com/:splat 301!
+https://www.meradevtechnologies.com/* https://meradevtechnologies.com/:splat 301!
+http://meradevtechnologies.com/* https://meradevtechnologies.com/:splat 301!
+
+# Keep SEO files reachable (do not rewrite to index.html)
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
+
+# SPA fallback
 /* /index.html 200

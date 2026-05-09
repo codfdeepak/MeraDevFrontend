@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://meradevtechnologies.com/</loc>
   </url>
-
   <url>
-    <loc>https://meradevtechnologies.com/about</loc>
+    <loc>https://meradevtechnologies.com/about-us</loc>
   </url>
-
   <url>
     <loc>https://meradevtechnologies.com/services</loc>
   </url>
-
   <url>
-    <loc>https://meradevtechnologies.com/contact</loc>
+    <loc>https://meradevtechnologies.com/projects</loc>
   </url>
-
+  <url>
+    <loc>https://meradevtechnologies.com/pricing</loc>
+  </url>
+  <url>
+    <loc>https://meradevtechnologies.com/payment-policy</loc>
+  </url>
+  <url>
+    <loc>https://meradevtechnologies.com/partners</loc>
+  </url>
+  <url>
+    <loc>https://meradevtechnologies.com/technologies</loc>
+  </url>
+  <url>
+    <loc>https://meradevtechnologies.com/enquiry</loc>
+  </url>
+  <url>
+    <loc>https://meradevtechnologies.com/contact-us</loc>
+  </url>
 </urlset>
