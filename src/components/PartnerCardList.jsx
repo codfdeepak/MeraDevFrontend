@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365
+const PRIMARY_OWNER_NAME = 'deepak kumar'
 
 const formatYearsLabel = (value) => {
   const years = Number(value)
@@ -40,6 +41,8 @@ const getExperienceLabel = (partner) => {
 }
 
 const getPartnerName = (partner) => partner?.user?.fullName || 'Partner Profile'
+const normalizeName = (value) => String(value || '').trim().toLowerCase()
+const isPrimaryOwnerPartner = (partner) => normalizeName(getPartnerName(partner)) === PRIMARY_OWNER_NAME
 
 const getRoleValue = (partner) =>
   String(partner?.role || partner?.user?.role || '').toLowerCase()
@@ -220,6 +223,10 @@ const getRoleRank = (partner) => {
 }
 
 const sortPartners = (a, b) => {
+  const isPrimaryOwnerA = isPrimaryOwnerPartner(a)
+  const isPrimaryOwnerB = isPrimaryOwnerPartner(b)
+  if (isPrimaryOwnerA !== isPrimaryOwnerB) return isPrimaryOwnerA ? -1 : 1
+
   const roleDiff = getRoleRank(a) - getRoleRank(b)
   if (roleDiff !== 0) return roleDiff
 

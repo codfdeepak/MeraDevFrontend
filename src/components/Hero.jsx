@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectHeroSlides, selectHeroStatus } from "../Redux/slices/heroSlice";
@@ -15,6 +15,7 @@ const FALLBACK_HERO_SLIDES = [
 ];
 
 const HERO_SLIDE_DELAY_MS = 10000;
+const HERO_SWIPE_THRESHOLD_PX = 56;
 const HERO_CAPABILITIES = [
   "Web Platforms",
   "SaaS Products",
@@ -32,6 +33,8 @@ const HERO_MEDIA_DETAILS = [
 const HERO_WHATSAPP_NUMBER = "919501924299";
 const HERO_WHATSAPP_BASE_URL = `https://wa.me/${HERO_WHATSAPP_NUMBER}`;
 const clampNumber = (value, min, max) => Math.min(max, Math.max(min, value));
+const isInteractiveElement = (target) =>
+  Boolean(target && typeof target.closest === "function" && target.closest("a, button, input, textarea, select, label"));
 
 const sanitizeSlideTitle = (title = "", index = 0) => {
   const cleanedTitle = String(title)
@@ -53,6 +56,10 @@ function Hero({ onDiscuss }) {
   const heroStatus = useSelector(selectHeroStatus);
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
+  const dragStartXRef = useRef(null);
+  const dragMovedRef = useRef(false);
+  const mouseDragActiveRef = useRef(false);
+  const clearDragFlagTimerRef = useRef(null);
 
   useEffect(() => {
     if (heroStatus === "idle") {
@@ -73,19 +80,162 @@ function Hero({ onDiscuss }) {
     setPreviousIndex(0);
   }, [slides.length]);
 
+  const hasMultipleSlides = slides.length > 1;
+
+  const goToNextSlide = useCallback(() => {
+    if (!hasMultipleSlides) return;
+    setActiveIndex((current) => {
+      const nextIndex = (current + 1) % slides.length;
+      setPreviousIndex(current);
+      return nextIndex;
+    });
+  }, [hasMultipleSlides, slides.length]);
+
+  const goToPreviousSlide = useCallback(() => {
+    if (!hasMultipleSlides) return;
+    setActiveIndex((current) => {
+      const nextIndex = (current - 1 + slides.length) % slides.length;
+      setPreviousIndex(current);
+      return nextIndex;
+    });
+  }, [hasMultipleSlides, slides.length]);
+
   useEffect(() => {
-    if (slides.length <= 1) return undefined;
+    if (!hasMultipleSlides) return undefined;
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => {
-        const nextIndex = (current + 1) % slides.length;
-        setPreviousIndex(current);
-        return nextIndex;
-      });
+      goToNextSlide();
     }, HERO_SLIDE_DELAY_MS);
 
     return () => window.clearInterval(timer);
-  }, [slides.length]);
+  }, [goToNextSlide, hasMultipleSlides]);
+
+  useEffect(() => {
+    return () => {
+      if (clearDragFlagTimerRef.current) {
+        window.clearTimeout(clearDragFlagTimerRef.current);
+      }
+    };
+  }, []);
+
+  const beginDrag = useCallback((clientX) => {
+    dragStartXRef.current = clientX;
+    dragMovedRef.current = false;
+  }, []);
+
+  const trackDrag = useCallback((clientX) => {
+    if (dragStartXRef.current === null) return;
+    if (Math.abs(clientX - dragStartXRef.current) > 8) {
+      dragMovedRef.current = true;
+    }
+  }, []);
+
+  const endDrag = useCallback((clientX) => {
+    if (dragStartXRef.current === null) return;
+
+    const dragDistance = clientX - dragStartXRef.current;
+    dragStartXRef.current = null;
+
+    if (!dragMovedRef.current || Math.abs(dragDistance) < HERO_SWIPE_THRESHOLD_PX) {
+      dragMovedRef.current = false;
+      return;
+    }
+
+    if (dragDistance < 0) {
+      goToNextSlide();
+    } else {
+      goToPreviousSlide();
+    }
+
+    if (clearDragFlagTimerRef.current) {
+      window.clearTimeout(clearDragFlagTimerRef.current);
+    }
+    clearDragFlagTimerRef.current = window.setTimeout(() => {
+      dragMovedRef.current = false;
+      clearDragFlagTimerRef.current = null;
+    }, 0);
+  }, [goToNextSlide, goToPreviousSlide]);
+
+  const resetDrag = useCallback(() => {
+    dragStartXRef.current = null;
+    dragMovedRef.current = false;
+    mouseDragActiveRef.current = false;
+    if (clearDragFlagTimerRef.current) {
+      window.clearTimeout(clearDragFlagTimerRef.current);
+      clearDragFlagTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasMultipleSlides) return undefined;
+
+    const handleWindowMouseMove = (event) => {
+      if (!mouseDragActiveRef.current) return;
+      trackDrag(event.clientX);
+    };
+
+    const handleWindowMouseUp = (event) => {
+      if (!mouseDragActiveRef.current) return;
+      mouseDragActiveRef.current = false;
+      endDrag(event.clientX);
+    };
+
+    window.addEventListener("mousemove", handleWindowMouseMove);
+    window.addEventListener("mouseup", handleWindowMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleWindowMouseMove);
+      window.removeEventListener("mouseup", handleWindowMouseUp);
+    };
+  }, [endDrag, hasMultipleSlides, trackDrag]);
+
+  const handleMouseDown = (event) => {
+    if (!hasMultipleSlides) return;
+    if (event.button !== 0) return;
+    if (isInteractiveElement(event.target)) return;
+
+    mouseDragActiveRef.current = true;
+    beginDrag(event.clientX);
+  };
+
+  const handleTouchStart = (event) => {
+    if (!hasMultipleSlides) return;
+    if (isInteractiveElement(event.target)) return;
+    const touch = event.touches?.[0];
+    if (!touch) return;
+    beginDrag(touch.clientX);
+  };
+
+  const handleTouchMove = (event) => {
+    const touch = event.touches?.[0];
+    if (!touch) return;
+    trackDrag(touch.clientX);
+  };
+
+  const handleTouchEnd = (event) => {
+    const touch = event.changedTouches?.[0];
+    if (!touch) {
+      resetDrag();
+      return;
+    }
+    endDrag(touch.clientX);
+  };
+
+  const handleTouchCancel = () => {
+    resetDrag();
+  };
+
+  const handleNativeDragStart = (event) => {
+    if (!hasMultipleSlides) return;
+    event.preventDefault();
+  };
+
+  const handleSliderClickCapture = (event) => {
+    if (!dragMovedRef.current) return;
+    event.preventDefault();
+    event.stopPropagation();
+    dragMovedRef.current = false;
+  };
 
   const setSlideByDot = (nextIndex) => {
     if (nextIndex === activeIndex) return;
@@ -123,7 +273,17 @@ function Hero({ onDiscuss }) {
   };
 
   return (
-    <section className="hero-slider" aria-label="Hero slider">
+    <section
+      className={`hero-slider ${hasMultipleSlides ? "is-draggable" : ""}`}
+      aria-label="Hero slider"
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
+      onDragStart={handleNativeDragStart}
+      onClickCapture={handleSliderClickCapture}
+    >
       {slides.map((slide, index) => (
         <article
           key={slide._id || `${slide.title}-${index}`}
@@ -190,6 +350,7 @@ function Hero({ onDiscuss }) {
                   alt={slide.title}
                   loading={index === activeIndex ? "eager" : "lazy"}
                   decoding="async"
+                  draggable={false}
                 />
               </div>
               <div className="hero-media-meta" aria-hidden="true">
